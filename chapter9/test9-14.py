@@ -7,6 +7,7 @@ for i in range(4):
     number_word = choice(lottery)
     my_lottery.append(number_word)
     print(f"- you pulled the {number_word}...")
+    times += 1
     if number_word == 4:
         print("Congratulations! You won!") 
         break

@@ -1,0 +1,10 @@
+In Chapter 2 you can learn 变量和数据类型
+In Chapter 3 you can learn 列表
+In Chapter 4 you can learn 操作列表
+In Chapter 5 you can learn if语句
+In Chapter 6 you can learn 字典
+In Chapter 7 you can learn input和while循环
+In Chapter 8 you can learn 函数
+In Chapter 9 you can learn 类
+In Chapter 10 you can learn 文件和异常
+
