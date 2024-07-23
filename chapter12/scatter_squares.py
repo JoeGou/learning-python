@@ -21,3 +21,4 @@ ax.axis([0, 1100, 0, 1_100_000])
 ax.tick_params(labelsize=14)
 
 plt.show()
+#plt.savefig('test')
