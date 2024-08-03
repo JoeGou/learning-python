@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import csv
 
-path = Path('weather_data/sitka_weather_2021_simple.csv')
+path = Path('weather_data/death_valley_2021_simple.csv')
 lines = path.read_text().splitlines()
 
 reader = csv.reader(lines)
@@ -17,12 +17,16 @@ highs = []
 lows = []
 dates = []
 for row in reader:
-    high = int(row[4])
-    low = int(row[5])
     current_date = datetime.strptime(row[2], '%Y-%m-%d')
-    highs.append(high)
-    lows.append(low)
-    dates.append(current_date)
+    try:
+        high = int(row[3])
+        low = int(row[4])
+    except ValueError:
+        print(f"Missing data for{current_date}")
+    else:
+        highs.append(high)
+        lows.append(low)
+        dates.append(current_date)
 
 # print(dates)
 
