@@ -1,0 +1,41 @@
+from pathlib import Path
+from datetime import datetime
+import csv
+import json
+import plotly.express as px
+import pandas as pd
+
+path = Path('weather_data/world_fires_1_day.csv')
+lines = path.read_text().splitlines()
+
+reader = csv.reader(lines)
+header_row = next(reader)
+
+for index, row in enumerate(header_row):
+    print(index, row)
+
+lons = []
+lats = []
+brightnesses = []
+for row in reader:
+    current_date = datetime.strptime(row[5], '%Y-%m-%d')
+    try:
+        lon = float(row[1])
+        lat = float(row[0])
+        brightness = float(row[2])
+    except ValueError:
+        print(f"Missing data for {current_date}")
+    else:
+        lons.append(lon)
+        lats.append(lat)
+        brightnesses.append(brightness)
+
+data = pd.DataFrame(data=zip(lons, lats, brightnesses), columns=['经度','纬度','火灾强度'])
+# print(data.head())
+# title = "global_earthquakes"
+title = 'world_fires_1_day'
+labels = {'x': 'lons', 'y': 'lats'}
+# fig = px.scatter(x=lons, y=lats, title = title, labels = labels)
+fig = px.scatter(data, x='经度', y='纬度', size = '火灾强度',size_max=10, color = '火灾强度', color_continuous_scale='mygbm', title = title, labels = labels)
+
+fig.show()

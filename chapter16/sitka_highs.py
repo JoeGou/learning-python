@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+from datetime import datetime
 from pathlib import Path
 import csv
 
@@ -13,30 +15,29 @@ print(header_row)
 # for index, column_header in enumerate(header_row):
 #     print(index, column_header)
 
+for index, column_header in enumerate(header_row):
+    print(index, column_header)
 
-#提取最高温度
 highs = []
-datatimes = []
+lows = []
+dates = []
 for row in reader:
     high = int(row[4])
-    datatime = row[2]
+    low = int(row[5])
+    current_date = datetime.strptime(row[2], '%Y-%m-%d')
     highs.append(high)
-    datatimes.append(datatime)
+    lows.append(low)
+    dates.append(current_date)
 
-print(len(datatimes))
-print(len(highs))
-
-#根据最高温度绘图
-plt.style.use('seaborn-v0_8-talk')
-
-fig, ax = plt.subplots(figsize=(15,9))
-x_values = list(range(0,len(highs)))
-plt.plot(datatimes, highs, linewidth= 3, color = 'red', )
-# print(x_values)
-# plt.scatter(datatime, highs, s=10)
-ax.set_title('sitaka Daily high temperature')
-ax.set_xlabel('', fontsize = 10)
-ax.set_ylabel('Temperatue (F)', fontsize = 10)
+# print(dates)
 
 
+fig, ax = plt.subplots()
+ax.plot(dates, highs, color = 'red', linewidth = 3, alpha=0.5)
+ax.plot(dates, lows, color = 'blue', linewidth = 3, alpha=0.5)
+ax.set_title("Daily high-low temperature", fontsize =24)
+ax.set_xlabel("", fontsize=16)
+ax.set_ylabel("Temperatue(F)", fontsize=16)
+ax.tick_params(labelsize =16)
+fig.autofmt_xdate()
 plt.show()
